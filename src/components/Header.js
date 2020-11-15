@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <TopBar>
-      <Link to="/"><h2>{today()}</h2></Link>
+      <Link to="/"><h4>{today()}</h4></Link>
       <Link to="/priority">
         <Icon icon={listIcon} style={{fontSize: '37px'}} />
       </Link>
@@ -32,5 +32,5 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 5px 20px;
-  border-bottom: #222222 solid 2px;
+  border-bottom: #222222 solid 2px
 `
