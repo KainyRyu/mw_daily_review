@@ -13,7 +13,7 @@ function useAuth() {
         setFuser(null);
       }
     });
-  }, [fuser]);
+  }, []);
 
   return fuser;
 }
