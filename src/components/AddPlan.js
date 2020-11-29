@@ -1,7 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 
-import styled from "@emotion/styled"
-import { useEventContext } from "../context/EventContext";
+import styled from '@emotion/styled';
+
+import { useEventContext } from '../context/EventContext';
+
 export default function AddPlan() {
   const {plans, setPlans} = useEventContext();
 
@@ -10,6 +13,8 @@ export default function AddPlan() {
     starts: 0,
     ends: 0
   });
+
+  const history = useHistory();
 
   const hours = [...Array(24).keys()];
 
@@ -28,6 +33,7 @@ export default function AddPlan() {
       newPlan[i] = newEvent.title;
     }
     setPlans(newPlan);
+    history.push('/');
   };
 
   return (
