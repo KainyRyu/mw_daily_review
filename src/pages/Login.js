@@ -11,11 +11,11 @@ export default function Login() {
       fInstance.auth.GoogleAuthProvider.PROVIDER_ID,
       fInstance.auth.FacebookAuthProvider.PROVIDER_ID,
       fInstance.auth.TwitterAuthProvider.PROVIDER_ID,
-      fInstance.auth.EmailAuthProvider.PROVIDER_ID
+      fInstance.auth.EmailAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
-      signInSuccess: () => false
-    }
+      signInSuccess: () => false,
+    },
   };
 
   return (

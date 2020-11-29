@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import styled from '@emotion/styled';
@@ -6,26 +6,29 @@ import styled from '@emotion/styled';
 import { useEventContext } from '../context/EventContext';
 
 export default function AddPlan() {
-  const {plans, setPlans} = useEventContext();
+  const { setPlans } = useEventContext();
 
   const [newEvent, setNewEvent] = useState({
     title: '',
     starts: 0,
-    ends: 0
+    ends: 0,
   });
 
   const history = useHistory();
 
   const hours = [...Array(24).keys()];
 
-  const getTitle = (e) => {setNewEvent({ ...newEvent, title: e.target.value.trim()})};
-  const getStart = (e) => {setNewEvent({ ...newEvent, starts: Number(e.target.value)})};
-  
-  const getEnds = (e) => {
-    const endsTime = Number(e.target.value);
-    setNewEvent({ ...newEvent, ends: endsTime})
+  const getTitle = (e) => {
+    setNewEvent({ ...newEvent, title: e.target.value.trim() });
+  };
+  const getStart = (e) => {
+    setNewEvent({ ...newEvent, starts: Number(e.target.value) });
   };
 
+  const getEnds = (e) => {
+    const endsTime = Number(e.target.value);
+    setNewEvent({ ...newEvent, ends: endsTime });
+  };
 
   const submitHandler = () => {
     let newPlan = {};
@@ -41,12 +44,12 @@ export default function AddPlan() {
       <h2>Add Your Plan</h2>
       <AddBox>
         <ItemWrapper>
-          <Input type="text" placeholder="Title" onChange={getTitle}/>
+          <Input type="text" placeholder="Title" onChange={getTitle} />
         </ItemWrapper>
         <ItemWrapper>
           <p style={{ margin: 0 }}>Starts</p>
           <Select onChange={getStart}>
-            {hours.map(hour => (
+            {hours.map((hour) => (
               <option>{hour.toString().padStart(2, '0')}</option>
             ))}
           </Select>
@@ -54,7 +57,7 @@ export default function AddPlan() {
         <ItemWrapper>
           <p style={{ margin: 0 }}>Ends</p>
           <Select onChange={getEnds}>
-            {hours.map(hour => (
+            {hours.map((hour) => (
               <option>{hour.toString().padStart(2, '0')}</option>
             ))}
           </Select>
@@ -73,11 +76,6 @@ const AddBox = styled.div`
   border: #222222 2px solid;
   padding: 10px;
   margin: 0 5vw;
-`;
-
-const Title = styled.input`
-  border-style: none;
-  font-size: 28px;
 `;
 
 const ItemWrapper = styled.div`

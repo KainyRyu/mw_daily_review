@@ -1,20 +1,20 @@
-import React from "react";
+import React from 'react';
 
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export default function CurrentEvent() {
   const currentTime = () => {
     const newDate = new Date();
-    const hour = newDate.getHours();
-    const min = newDate.getMinutes();
-    console.log(hour);
+    const hour = newDate.getHours().toString().padStart(2, '0');
+    const min = newDate.getMinutes().toString().padStart(2, '0');
+
     return `${hour}: ${min}`;
   };
 
   return (
     <Wrapper>
       <DisplayCurrentTime>{currentTime()}</DisplayCurrentTime>
-      <EventTite>Current Event</EventTite>
+      <EventTitle>Current Event</EventTitle>
     </Wrapper>
   );
 }
@@ -30,7 +30,7 @@ const DisplayCurrentTime = styled.div`
   padding: 5px;
 `;
 
-const EventTite = styled.div`
+const EventTitle = styled.div`
   flex: 5;
   padding: 5px;
 `;
