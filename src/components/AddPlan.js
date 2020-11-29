@@ -1,21 +1,45 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
-import styled from "@emotion/styled";
-
+import styled from "@emotion/styled"
+import { useEventContext } from "../context/EventContext";
 export default function AddPlan() {
-  const onSubmit = () => {};
+  const {plans, setPlans} = useEventContext();
+
+  const [newEvent, setNewEvent] = useState({
+    title: '',
+    starts: 0,
+    ends: 0
+  });
+
   const hours = [...Array(24).keys()];
+
+  const getTitle = (e) => {setNewEvent({ ...newEvent, title: e.target.value.trim()})};
+  const getStart = (e) => {setNewEvent({ ...newEvent, starts: Number(e.target.value)})};
+  
+  const getEnds = (e) => {
+    const endsTime = Number(e.target.value);
+    setNewEvent({ ...newEvent, ends: endsTime})
+  };
+
+
+  const submitHandler = () => {
+    let newPlan = {};
+    for (let i = newEvent.starts; i <= newEvent.ends; i++) {
+      newPlan[i] = newEvent.title;
+    }
+    setPlans(newPlan);
+  };
 
   return (
     <Add>
       <h2>Add Your Plan</h2>
       <AddBox>
         <ItemWrapper>
-          <Input type="text" placeholder="Title" />
+          <Input type="text" placeholder="Title" onChange={getTitle}/>
         </ItemWrapper>
         <ItemWrapper>
           <p style={{ margin: 0 }}>Starts</p>
-          <Select>
+          <Select onChange={getStart}>
             {hours.map(hour => (
               <option>{hour.toString().padStart(2, '0')}</option>
             ))}
@@ -23,14 +47,14 @@ export default function AddPlan() {
         </ItemWrapper>
         <ItemWrapper>
           <p style={{ margin: 0 }}>Ends</p>
-          <Select>
+          <Select onChange={getEnds}>
             {hours.map(hour => (
               <option>{hour.toString().padStart(2, '0')}</option>
             ))}
           </Select>
         </ItemWrapper>
       </AddBox>
-      <Submit to="/" onClick={onSubmit}>Add</Submit>
+      <Submit onClick={submitHandler}>Add</Submit>
     </Add>
   );
 }
