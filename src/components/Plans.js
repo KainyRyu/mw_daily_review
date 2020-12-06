@@ -2,14 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import PlanItem from './PlanItem';
+import { useEventContext } from '../context/EventContext';
 
 export default function Plans() {
-  const hours = [...Array(24).keys()];
+  const { hours } = useEventContext();
 
   return (
     <LegalPad>
-      {hours.map((hour) => (
-        <PlanItem key={hour} hour={hour} title={'title'} review={'review'} />
+      {hours.map((hour, index) => (
+        <PlanItem key={index} hour={index} plan={hour.plan} review={'review'} />
       ))}
     </LegalPad>
   );

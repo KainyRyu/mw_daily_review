@@ -2,15 +2,15 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-function PlanItem({ hour, title, review }) {
-  const addHourPad = (num) => {
+function PlanItem({ hour, plan, review }) {
+  const addHourPad = num => {
     return num.toString().padStart(2, '0');
   };
 
   return (
     <ItemWrapper>
       <Hour>{`${addHourPad(hour)} - ${addHourPad(hour + 1)}`}</Hour>
-      <Title>{title}</Title>
+      <Title>{plan}</Title>
       <Review>{review}</Review>
     </ItemWrapper>
   );
