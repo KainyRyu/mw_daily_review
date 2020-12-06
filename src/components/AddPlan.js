@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import styled from '@emotion/styled';
@@ -6,59 +6,69 @@ import styled from '@emotion/styled';
 import { useEventContext } from '../context/EventContext';
 
 export default function AddPlan() {
-  const { setPlans } = useEventContext();
+  const { hours, setHours } = useEventContext();
 
   const [newEvent, setNewEvent] = useState({
-    title: '',
+    plan: '',
     starts: 0,
-    ends: 0,
+    ends: 0
   });
 
   const history = useHistory();
 
-  const hours = [...Array(24).keys()];
+  const getPlan = useCallback(
+    e => {
+      setNewEvent({ ...newEvent, plan: e.target.value.trim() });
+    },
+    [newEvent]
+  );
 
-  const getTitle = (e) => {
-    setNewEvent({ ...newEvent, title: e.target.value.trim() });
-  };
-  const getStart = (e) => {
-    setNewEvent({ ...newEvent, starts: Number(e.target.value) });
-  };
+  const getStart = useCallback(
+    e => {
+      setNewEvent({ ...newEvent, starts: Number(e.target.value) });
+    },
+    [newEvent]
+  );
 
-  const getEnds = (e) => {
-    const endsTime = Number(e.target.value);
-    setNewEvent({ ...newEvent, ends: endsTime });
-  };
+  const getEnds = useCallback(
+    e => {
+      const endsTime = Number(e.target.value);
+      setNewEvent({ ...newEvent, ends: endsTime });
+    },
+    [newEvent]
+  );
 
-  const submitHandler = () => {
-    let newPlan = {};
-    for (let i = newEvent.starts; i <= newEvent.ends; i++) {
-      newPlan[i] = newEvent.title;
-    }
-    setPlans(newPlan);
+  const submitHandler = useCallback(() => {
+    const newHours = hours.map((item, idx) => {
+      if (idx >= newEvent.starts && idx <= newEvent.ends) {
+        return { plan: newEvent.plan };
+      }
+      return item;
+    });
     history.push('/');
-  };
+    setHours(newHours);
+  }, [newEvent, history, setHours, hours]);
 
   return (
     <Add>
       <h2>Add Your Plan</h2>
       <AddBox>
         <ItemWrapper>
-          <Input type="text" placeholder="Title" onChange={getTitle} />
+          <Input type="text" placeholder="Event" onChange={getPlan} />
         </ItemWrapper>
         <ItemWrapper>
           <p style={{ margin: 0 }}>Starts</p>
           <Select onChange={getStart}>
-            {hours.map((hour) => (
-              <option>{hour.toString().padStart(2, '0')}</option>
+            {hours.map((hour, index) => (
+              <option key={index}>{index.toString().padStart(2, '0')}</option>
             ))}
           </Select>
         </ItemWrapper>
         <ItemWrapper>
           <p style={{ margin: 0 }}>Ends</p>
           <Select onChange={getEnds}>
-            {hours.map((hour) => (
-              <option>{hour.toString().padStart(2, '0')}</option>
+            {hours.map((hour, index) => (
+              <option key={index}>{index.toString().padStart(2, '0')}</option>
             ))}
           </Select>
         </ItemWrapper>

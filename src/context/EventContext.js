@@ -1,21 +1,18 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 
-const EventContext = React.createContext({
-  plans: {},
-});
+const EventContext = React.createContext();
 
 function EventProvider(props) {
   const [plans, setPlans] = useState({});
-
-  useEffect(() => {
-    console.log(plans);
-  }, [plans]);
+  const [hours, setHours] = useState([...Array(24).keys()]);
 
   return (
     <EventContext.Provider
       value={{
         plans,
+        hours,
         setPlans,
+        setHours
       }}
     >
       {props.children}
