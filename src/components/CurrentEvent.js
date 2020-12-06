@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from '@emotion/styled';
+import { useEventContext } from '../context/EventContext';
 
 export default function CurrentEvent() {
-  const currentTime = () => {
-    const newDate = new Date();
-    const hour = newDate.getHours().toString().padStart(2, '0');
-    const min = newDate.getMinutes().toString().padStart(2, '0');
+  const { hours } = useEventContext();
 
-    return `${hour}: ${min}`;
+  const newDate = new Date();
+
+  const currentTime = {
+    hour: newDate.getHours().toString().padStart(2, '0'),
+    minute: newDate.getMinutes().toString().padStart(2, '0')
   };
+
+  let currentEvent = hours[currentTime.hour].plan;
 
   return (
     <Wrapper>
-      <DisplayCurrentTime>{currentTime()}</DisplayCurrentTime>
-      <EventTitle>Current Event</EventTitle>
+      <DisplayCurrentTime>{`${currentTime.hour}: ${currentTime.minute}`}</DisplayCurrentTime>
+      <EventTitle>{currentEvent ? currentEvent : 'No Event.'}</EventTitle>
     </Wrapper>
   );
 }
