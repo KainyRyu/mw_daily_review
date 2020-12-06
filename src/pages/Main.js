@@ -7,30 +7,26 @@ import plusOutlined from '@iconify/icons-ant-design/plus-outlined';
 
 import Plans from '../components/Plans';
 import CurrentEvent from '../components/CurrentEvent';
-import { EventProvider } from '../context/EventContext';
 
 export default function Main() {
   return (
-    <EventProvider>
-      <Edge>
-        <CurrentEvent />
-
-        <PlanTop>
-          <h4>Daily's Plan</h4>
-          <Link to="/addplan">
-            <Icon
-              icon={plusOutlined}
-              style={{
-                fontSize: '24px',
-                alignSelf: 'flex-end',
-              }}
-              hFlip={true}
-            />
-          </Link>
-        </PlanTop>
-        <Plans />
-      </Edge>
-    </EventProvider>
+    <Edge>
+      <CurrentEvent />
+      <PlanTop>
+        <h4>Daily's Plan</h4>
+        <Link to="/addplan">
+          <Icon
+            icon={plusOutlined}
+            style={{
+              fontSize: '24px',
+              alignSelf: 'flex-end'
+            }}
+            hFlip={true}
+          />
+        </Link>
+      </PlanTop>
+      <Plans />
+    </Edge>
   );
 }
 
